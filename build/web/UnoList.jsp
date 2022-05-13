@@ -4,7 +4,8 @@
     Author     : Alumno
 --%>
 
-<%@page import="org.gerdoc.dao.Uno"%>
+<%@page import="org.gerdoc.helper.UnoHelper"%>
+<%@page import="org.gerdoc.dao.Uno"%> 
 <%@page import="java.util.List"%>
 <%@page import="org.gerdoc.service.MySqlConnection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -12,61 +13,47 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <title>Uno List</title>
     </head>
-    <body>
-        <h1>Hello World!</h1>
-        <%
-            List<Uno>unoList = null;
-            unoList = MySqlConnection.getUnoList();
-            if( unoList == null || unoList.size() == 0 )
-            {
-                System.out.println("Error base vacia");
-                return;
-            }
-        %>
-        <table>
-            <tr>
-                <td>
-                    ID
-                </td>
-                <td>
-                    CAMPO 1
-                </td>
-                <td>
-                    CAMPO 2
-                </td>
-                <td>
-                    CAMPO 3
-                </td>
-                <td>
-                    CAMPO 4
-                </td>
-            </tr>
+    
+        <div class="container-fluid p-5 bg-primary text-white text-center">
+            Lista Uno
+        </div>
+        <div class="container mt-4"> 
             <%
-            for( Uno uno : unoList)
-            {
+                if( request == null )
+                {
+                    return;
+                }
+                String action = request.getParameter( "action" );
+                if( action == null )
+                {
+                    action = "";
+                }
+                switch( action )
+                {
+                    case "nuevo":
             %>
-            <tr>
-                <td>
-                    <%=uno.getId()%>
-                </td>
-                <td>
-                    <%=uno.getCampo1()%>
-                </td>
-                <td>
-                    <%=uno.getCampo2()%>
-                </td>
-                <td>
-                    <%=uno.getCampo3()%>
-                </td>
-                <td>
-                    <%=uno.getCampo4()%>
-                </td>
-            </tr>
+                        <jsp:include page="UnoForm.jsp" />
             <%
-            }
+                        break;
+                    case "send":
+                        if( new UnoHelper( ).addUno(request) )
+                        {
+                            response.sendRedirect("UnoList.jsp");
+                        }
+                        break;
+                    default:
             %>
-        </table>
-    </body>
+                        <jsp:include page="UnoTable.jsp" />
+            <%
+                }
+            %>
+        
+        </div>
+    
 </html>

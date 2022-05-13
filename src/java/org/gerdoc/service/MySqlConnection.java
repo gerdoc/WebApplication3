@@ -91,52 +91,7 @@ public class MySqlConnection implements Serializable
         }
     }
     
-    public static List<Uno> getUnoList( )
-    {
-        List<Uno>unoList = null;
-        Connection connection = null;
-        Statement statement = null;
-        ResultSet resultSet = null;
-        Uno uno = null;
-        
-        try 
-        {
-            connection = getConnection( );
-            if( connection == null )
-            {
-                return null;
-            }
-            statement = connection.createStatement( );
-            if( statement == null )
-            {
-                return null;
-            }
-            resultSet = statement.executeQuery( "SELECT * FROM TBL_UNO" );
-            if( resultSet == null )
-            {
-                return null;
-            }
-            unoList = new ArrayList<>();
-            while( resultSet.next() )
-            {
-                uno = new Uno();
-                uno.setId( resultSet.getInt(1) );
-                uno.setCampo1(resultSet.getInt(2) );
-                uno.setCampo2(resultSet.getString(3) );
-                uno.setCampo3(resultSet.getString(4) );
-                uno.setCampo4(resultSet.getDate(5) );
-                unoList.add(uno);
-            }
-            resultSet.close();
-            closeConnection(connection);
-            return unoList;
-        } 
-        catch (SQLException ex) 
-        {
-            ex.printStackTrace();
-        }
-        return null;
-    }
+    
     
     public static List<Dos> getDosList( )
     {
