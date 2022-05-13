@@ -1,61 +1,57 @@
 <%-- 
-    Document   : UnoList
+    Document   : DosList
     Created on : 12/05/2022, 01:56:02 PM
     Author     : Alumno
 --%>
 
-<%@page import="org.gerdoc.dao.Dos"%>
-<%@page import="org.gerdoc.dao.Uno"%>
+<%@page import="org.gerdoc.helper.DosHelper"%>
+<%@page import="org.gerdoc.dao.Dos"%> 
 <%@page import="java.util.List"%>
-<%@page import="org.gerdoc.service.MySqlConnection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <title>Dos List</title>
     </head>
-    <body>
-        <h1>Hello World!</h1>
-        <%
-            List<Dos>dosList = null;
-            dosList = MySqlConnection.getDosList();
-            if( dosList == null || dosList.size() == 0 )
-            {
-                System.out.println("Error base vacia");
-                return;
-            }
-        %>
-        <table BORDER="1">
-            <tr>
-                <td>
-                    ID
-                </td>
-                <td>
-                    CAMPO 1
-                </td>
-                <td>
-                    CAMPO 2
-                </td>
-            </tr>
+    
+        <div class="container-fluid p-5 bg-primary text-white text-center">
+            Lista Dos
+        </div>
+        <div class="container mt-4"> 
             <%
-            for( Dos dos : dosList)
-            {
+                if( request == null )
+                {
+                    return;
+                }
+                String action = request.getParameter( "action" );
+                if( action == null )
+                {
+                    action = "";
+                }
+                switch( action )
+                {
+                    case "nuevo":
             %>
-            <tr>
-                <td>
-                    <%=dos.getId()%>
-                </td>
-                <td>
-                    <%=dos.getCampo1()%>
-                </td>
-                <td>
-                    <%=dos.getCampo2()%>
-                </td>
-            </tr>
+                        <jsp:include page="DosForm.jsp" />
             <%
-            }
+                        break;
+                    case "send":
+                        if( new DosHelper( ).addDos(request) )
+                        {
+                            response.sendRedirect("DosList.jsp");
+                        }
+                        break;
+                    default:
             %>
-        </table>
-    </body>
+                        <jsp:include page="DosTable.jsp" />
+            <%
+                }
+            %>
+        
+        </div>
 </html>

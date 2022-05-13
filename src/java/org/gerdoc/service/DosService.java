@@ -12,22 +12,26 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import org.gerdoc.dao.Uno;
+import org.gerdoc.dao.Dos;
 
 /**
  *
  * @author gerdoc
  */
-public class UnoService 
+public class DosService 
 {
-    
-    public List<Uno> getUnoList( )
+
+    public DosService() 
     {
-        List<Uno>unoList = null;
+    }
+    
+    public List<Dos> getDosList( )
+    {
+        List<Dos>dosList = null;
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
-        Uno uno = null;
+        Dos dos = null;
         
         try 
         {
@@ -41,25 +45,23 @@ public class UnoService
             {
                 return null;
             }
-            resultSet = statement.executeQuery( "SELECT * FROM TBL_UNO" );
+            resultSet = statement.executeQuery( "SELECT * FROM TBL_DOS" );
             if( resultSet == null )
             {
                 return null;
             }
-            unoList = new ArrayList<>();
+            dosList = new ArrayList<>();
             while( resultSet.next() )
             {
-                uno = new Uno();
-                uno.setId( resultSet.getInt(1) );
-                uno.setCampo1(resultSet.getInt(2) );
-                uno.setCampo2(resultSet.getString(3) );
-                uno.setCampo3(resultSet.getString(4) );
-                uno.setCampo4(resultSet.getDate(5) );
-                unoList.add(uno);
+                dos = new Dos();
+                dos.setId( resultSet.getInt(1) );
+                dos.setCampo1(resultSet.getInt(2) );
+                dos.setCampo2(resultSet.getString(3) );
+                dosList.add(dos);
             }
             resultSet.close();
             MySqlConnection.closeConnection(connection);
-            return unoList;
+            return dosList;
         } 
         catch (SQLException ex) 
         {
@@ -68,11 +70,11 @@ public class UnoService
         return null;
     }
     
-    public boolean addUno( Uno uno )
+    public boolean addDos( Dos dos )
     {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        String sql = "INSERT INTO TBL_UNO(CAMPO1,CAMPO2,CAMPO3,CAMPO4) VALUES(?,?,?,?)";
+        String sql = "INSERT INTO TBL_DOS(CAMPO1,CAMPO2) VALUES(?,?)";
         int row = 0;
         try 
         {
@@ -86,10 +88,8 @@ public class UnoService
             {
                 return false;
             }
-            preparedStatement.setInt(1, uno.getCampo1());
-            preparedStatement.setString(2, uno.getCampo2());
-            preparedStatement.setString(3, uno.getCampo3());
-            preparedStatement.setDate(4, new java.sql.Date( uno.getCampo4().getTime() ) );
+            preparedStatement.setInt(1, dos.getCampo1());
+            preparedStatement.setString(2, dos.getCampo2());            
             row = preparedStatement.executeUpdate();
             MySqlConnection.closeConnection(connection);
             return row == 1;

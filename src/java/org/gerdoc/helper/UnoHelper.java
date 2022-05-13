@@ -9,12 +9,8 @@ import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import org.gerdoc.dao.Uno;
 import org.gerdoc.service.UnoService;
@@ -34,7 +30,7 @@ public class UnoHelper implements Serializable
     
     public boolean loadList( )
     {
-        list = UnoService.getUnoList();
+        list = new UnoService().getUnoList();
         return list != null && list.size() > 0;
     }
     

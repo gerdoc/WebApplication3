@@ -7,7 +7,6 @@
 <%@page import="org.gerdoc.helper.UnoHelper"%>
 <%@page import="java.util.List"%>
 <%@page import="org.gerdoc.dao.Uno"%>
-<%@page import="org.gerdoc.service.MySqlConnection"%>
 
 <div class="row">
     <a href="?action=nuevo">
