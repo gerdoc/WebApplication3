@@ -101,4 +101,69 @@ public class UnoService
         return false;
     }
     
+    public boolean deleteUno( Uno uno )
+    {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        String sql = "DELETE FROM TBL_UNO WHERE ID = ?";
+        int row = 0;
+        try 
+        {
+            connection = MySqlConnection.getConnection( );
+            if( connection == null )
+            {
+                return false;
+            }
+            preparedStatement = connection.prepareStatement(sql);
+            if( preparedStatement == null )
+            {
+                return false;
+            }
+            preparedStatement.setInt(1, uno.getId());
+            row = preparedStatement.executeUpdate();
+            MySqlConnection.closeConnection(connection);
+            return row == 1;
+        } 
+        catch (SQLException ex) 
+        {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+    
+    public Uno getUnoById( Integer id )
+    {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        String sql = "SELECT * FROM TBL_UNO WHERE ID= ?";
+        Uno uno = null;
+        try 
+        {
+            preparedStatement = connection.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery( );
+            if( resultSet == null )
+            {
+                return null;
+            }
+            while( resultSet.next() )
+            {
+                uno = new Uno();
+                uno.setId( resultSet.getInt(1) );
+                uno.setCampo1(resultSet.getInt(2) );
+                uno.setCampo2(resultSet.getString(3) );
+                uno.setCampo3(resultSet.getString(4) );
+                uno.setCampo4(resultSet.getDate(5) );
+            }
+            resultSet.close();
+            MySqlConnection.closeConnection(connection);
+            return uno;
+        } 
+        catch (SQLException ex) 
+        {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+    
 }

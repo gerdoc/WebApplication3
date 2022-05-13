@@ -36,6 +36,7 @@
                         <th>CAMPO 2</th>
                         <th>CAMPO 3</th>
                         <th>CAMPO 4</th>
+                        <th>ACCIONES</th>
                     </tr>
                 </thead>
 <%
@@ -58,6 +59,18 @@
                         </td>
                         <td>
                             <%=uno.getCampo4()%>
+                        </td>
+                        <td>
+                            <a href="?action=delete&id=<%=uno.getId()%>">
+                                <button type="button" class="btn btn-outline-primary ">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </a>
+                            <a href="?action=edit&id=<%=uno.getId()%>">
+                                <button type="button" class="btn btn-outline-primary ">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+                            </a>
                         </td>
                     </tr>
                 </tbody>

@@ -109,6 +109,29 @@ public class UnoHelper implements Serializable
         }
         return list;
     }
+    
+    public boolean deleteUno( HttpServletRequest request )
+    {
+        uno = new Uno( ); 
+        uno.setId( getInteger( request.getParameter( "id" )) );
+        if( uno.getId( ) == null )
+        {
+            return false;
+        }
+        return new UnoService().deleteUno( uno );
+    }
+    
+    public Uno getUnoById( HttpServletRequest request )
+    {
+        Uno uno = null;
+        Integer id = null;
+        id = getInteger( request.getParameter( "id" ) );
+        if( id == null )
+        {
+            return null;
+        }
+        return new UnoService().getUnoById( id );
+    }
 
     public void setList(List<Uno> list) 
     {
