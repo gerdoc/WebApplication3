@@ -13,7 +13,7 @@
         </div>
         <div class="col">
             <div class="mb-3 mt-3">
-                <label for="campo1">Campo 3:</label>
+                <label for="campo1">Campo 2:</label>
                 <input type="text" class="form-control" id="campo2" placeholder="Escribe una cadena" name="campo2">
             </div>
         </div>

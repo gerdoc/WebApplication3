@@ -140,7 +140,13 @@ public class UnoService
         Uno uno = null;
         try 
         {
+            connection = MySqlConnection.getConnection( );
+            if( connection == null )
+            {
+                return null;
+            }
             preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id );
             resultSet = preparedStatement.executeQuery( );
             if( resultSet == null )
             {
@@ -164,6 +170,40 @@ public class UnoService
             ex.printStackTrace();
         }
         return null;
+    }
+    
+    public boolean updateUno( Uno uno )
+    {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        String sql = "update TBL_UNO SET CAMPO1= ?, CAMPO2=?, CAMPO3=?,CAMPO4=? WHERE ID = ?";
+        int row = 0;
+        try 
+        {
+            connection = MySqlConnection.getConnection( );
+            if( connection == null )
+            {
+                return false;
+            }
+            preparedStatement = connection.prepareStatement(sql);
+            if( preparedStatement == null )
+            {
+                return false;
+            }
+            preparedStatement.setInt(1, uno.getCampo1());
+            preparedStatement.setString(2, uno.getCampo2());
+            preparedStatement.setString(3, uno.getCampo3());
+            preparedStatement.setDate(4, new java.sql.Date( uno.getCampo4().getTime() ) );
+            preparedStatement.setInt(5, uno.getId());
+            row = preparedStatement.executeUpdate();
+            MySqlConnection.closeConnection(connection);
+            return row == 1;
+        } 
+        catch (SQLException ex) 
+        {
+            ex.printStackTrace();
+        }
+        return false;
     }
     
 }

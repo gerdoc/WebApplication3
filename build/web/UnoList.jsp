@@ -38,6 +38,7 @@
                 switch( action )
                 {
                     case "nuevo":
+                    case "editar":
             %>
                         <jsp:include page="UnoForm.jsp" />
             <%
@@ -50,6 +51,12 @@
                         break;
                     case "delete":
                         if( new UnoHelper( ).deleteUno(request) )
+                        {
+                            response.sendRedirect("UnoList.jsp");
+                        }
+                        break;
+                    case "actualizar":
+                        if( new UnoHelper( ).updateUno(request) )
                         {
                             response.sendRedirect("UnoList.jsp");
                         }

@@ -66,7 +66,7 @@
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </a>
-                            <a href="?action=edit&id=<%=uno.getId()%>">
+                            <a href="?action=editar&id=<%=uno.getId()%>">
                                 <button type="button" class="btn btn-outline-primary ">
                                     <i class="fa fa-edit"></i>
                                 </button>
