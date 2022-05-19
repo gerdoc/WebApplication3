@@ -9,7 +9,9 @@ import java.io.Serializable;
 
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import org.gerdoc.dao.Rol;
 import org.gerdoc.dao.RolUsuario;
+import org.gerdoc.dao.Usuario;
 import org.gerdoc.service.RolUsuarioService;
 
 
@@ -34,19 +36,17 @@ public class RolUsuarioHelper implements Serializable
     
     public boolean addRolUsuario( HttpServletRequest request )
     {
-        rolUsuario = new RolUsuario( ); 
-        rolUsuario.getUsuario().setUsuario(request.getParameter( "rolUsuario" ) );
+        rolUsuario = new RolUsuario( new Rol( ) , new Usuario( ) ); 
+        rolUsuario.getUsuario().setUsuario(request.getParameter( "usuario" ) );
         if( rolUsuario.getUsuario().getUsuario() == null || rolUsuario.getUsuario().getUsuario().length() == 0 )
         {
             return false;
         }
-        /*
-        rolUsuario.setDescripcion( request.getParameter( "descripcion" ) );
-        if( rolUsuario.getDescripcion() == null || rolUsuario.getDescripcion().length() == 0 )
+        rolUsuario.getRol().setRol(request.getParameter( "rol" ) );
+        if( rolUsuario.getRol().getRol() == null || rolUsuario.getRol().getRol().length() == 0 )
         {
             return false;
         }
-*/
         return new RolUsuarioService().addRolUsuario(rolUsuario);
     }
     

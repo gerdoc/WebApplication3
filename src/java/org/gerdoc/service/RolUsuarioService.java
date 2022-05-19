@@ -88,7 +88,7 @@ public class RolUsuarioService
     {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        String sql = "INSERT INTO TBL_rolUsuario(ROL,DESCRIPCION) VALUES(?,?)";
+        String sql = "INSERT INTO TBL_ROL_TBL_USER (TBL_ROL_ROL,TBL_USUARIO_USUARIO) VALUES(?,?)";
         int row = 0;
         try 
         {
@@ -102,8 +102,8 @@ public class RolUsuarioService
             {
                 return false;
             }
-            preparedStatement.setString(1, rolUsuario.getRol().getDescripcion());
-            preparedStatement.setString(2, rolUsuario.getRol().getRol());
+            preparedStatement.setString(1, rolUsuario.getRol().getRol());
+            preparedStatement.setString(2, rolUsuario.getUsuario().getUsuario());
             row = preparedStatement.executeUpdate();
             MySqlConnection.closeConnection(connection);
             return row == 1;
