@@ -31,6 +31,8 @@ public class RolUsuarioService
         ResultSet resultSet = null;
         RolUsuario rolUsuario = null;
         String sql = null;
+        Usuario usuario = null;
+        Rol rol = null;
         
         try 
         {
@@ -64,13 +66,17 @@ public class RolUsuarioService
             rolUsuarioList = new ArrayList<>();
             while( resultSet.next() )
             {
-                rolUsuario = new RolUsuario( new Rol( ) , new Usuario( ) );
+                rolUsuario = new RolUsuario( );
+                usuario = new Usuario( );
+                rol = new Rol( );
+                rolUsuario.setRol(rol);
+                rolUsuario.setUsuario(usuario);
                 rolUsuario.setId( resultSet.getInt(1) );
-                rolUsuario.getUsuario().setUsuario( resultSet.getString(2) );
-                rolUsuario.getUsuario().setPassword( resultSet.getString(3) );
-                rolUsuario.getUsuario().setCorreo( resultSet.getString(4) );
-                rolUsuario.getRol( ).setRol( resultSet.getString(5) );
-                rolUsuario.getRol( ).setDescripcion( resultSet.getString(6) );
+                usuario.setUsuario( resultSet.getString(2) );
+                usuario.setPassword( resultSet.getString(3) );
+                usuario.setCorreo( resultSet.getString(4) );
+                rol.setRol( resultSet.getString(5) );
+                rol.setDescripcion( resultSet.getString(6) );
                 rolUsuarioList.add(rolUsuario);
             }
             resultSet.close();

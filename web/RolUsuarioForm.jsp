@@ -21,7 +21,7 @@
                         if( rolList != null && rolList.size() > 0 )
                         {
                            for( Rol rol : rolList )
-                           {
+                           {                               
                     %>
                                 <option value="<%=rol.getRol()%>"><%=rol.getRol()%></option>
                     <%
@@ -43,7 +43,7 @@
                            for( Usuario usuario : usuarioList )
                            {
                     %>
-                                <option value="<%=usuario.getUsuario()%>"><%=usuario.getUsuario()%></option>
+                                <option value="<%=usuario.getUsuario()%>"><%=usuario.getUsuario() +"-"+ usuario.getCorreo() %></option>
                     <%
                            }
                         }
