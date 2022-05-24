@@ -2,19 +2,35 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        <h:form>
+        <h:form id="form1">
             <p:panelGrid columns="1">
-                <p:outputLabel for="text" value="Uno" />
-                <p:inputText id="text" />
-                <p:commandButton  id="aa" value="ok" />
-
+                <p:outputLabel for="campo1" value="Campo 1" />
+                <p:inputText id="campo1" value="#{dosHelper.dos.campo1}" required="true" requiredMessage="Campo requerido" />
+                <p:message for="campo1" />
+                <p:outputLabel for="campo2" value="Campo 2" />
+                <p:inputText id="campo2" value="#{dosHelper.dos.campo2}" required="true" requiredMessage="Campo requerido"/>
+                <p:message for="campo2" />
+                <p:commandButton  id="aa" action="#{dosHelper.addDos()}" value="Guardar" process="@form" update="dataTableDos"/>
             </p:panelGrid>
+            <p:dataTable id="dataTableDos" var="dos" value="#{dosHelper.dosList}" style="margin-bottom:40px">
+                <f:facet name="header">
+                    Uno
+                </f:facet>
+                <p:column headerText="Campo1" >
+                    <h:outputText value="#{dos.campo1}" />
+                </p:column>
+                <p:column headerText="Campo 2" >
+                <h:outputText value="#{dos.campo2}" />
+        </p:column>
+    </p:dataTable>
+     
+    
         </h:form>
     </h:body>
 </html>
-
